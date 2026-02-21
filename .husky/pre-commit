@@ -1,0 +1,1 @@
+cd Denver-Food-Browser && npx lint-staged

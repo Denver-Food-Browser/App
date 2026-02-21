@@ -35,4 +35,8 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# bun
+bun.lockb
+bun.lock
+
 app-example

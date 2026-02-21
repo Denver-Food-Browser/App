@@ -1,0 +1,3 @@
+cd Denver-Food-Browser
+npm run type-check
+npm run lint
