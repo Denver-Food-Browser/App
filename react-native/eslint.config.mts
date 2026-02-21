@@ -1,13 +1,13 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
-import pluginReact from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactNative from 'eslint-plugin-react-native';
-import importPlugin from 'eslint-plugin-import';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
-import security from 'eslint-plugin-security';
-import prettier from 'eslint-plugin-prettier/recommended';
+import js from '@eslint/js'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+import pluginReact from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactNative from 'eslint-plugin-react-native'
+import importPlugin from 'eslint-plugin-import'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import security from 'eslint-plugin-security'
+import prettier from 'eslint-plugin-prettier/recommended'
 
 export default tseslint.config(
   js.configs.recommended,
@@ -180,5 +180,5 @@ export default tseslint.config(
       '*.config.js',
       '*.config.mjs',
     ],
-  }
-);
+  },
+)
