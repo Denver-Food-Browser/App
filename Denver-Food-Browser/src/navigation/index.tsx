@@ -1,18 +1,17 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HeaderButton, Text } from '@react-navigation/elements';
-import {
-  createStaticNavigation,
-  StaticParamList,
-} from '@react-navigation/native';
+import { createStaticNavigation, type StaticParamList } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image } from 'react-native';
+
 import bell from '../assets/bell.png';
 import newspaper from '../assets/newspaper.png';
+
 import { Home } from './screens/Home';
+import { NotFound } from './screens/NotFound';
 import { Profile } from './screens/Profile';
 import { Settings } from './screens/Settings';
 import { Updates } from './screens/Updates';
-import { NotFound } from './screens/NotFound';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -64,10 +63,10 @@ const RootStack = createNativeStackNavigator({
       linking: {
         path: ':user(@[a-zA-Z0-9-_]+)',
         parse: {
-          user: (value) => value.replace(/^@/, ''),
+          user: value => value.replace(/^@/, ''),
         },
         stringify: {
-          user: (value) => `@${value}`,
+          user: value => `@${value}`,
         },
       },
     },

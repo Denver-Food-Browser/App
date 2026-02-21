@@ -1,5 +1,5 @@
 import { Text } from '@react-navigation/elements';
-import { StaticScreenProps } from '@react-navigation/native';
+import type { StaticScreenProps } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 
 type Props = StaticScreenProps<{
@@ -9,7 +9,7 @@ type Props = StaticScreenProps<{
 export function Profile({ route }: Props) {
   return (
     <View style={styles.container}>
-      <Text>{route.params.user}'s Profile</Text>
+      <Text>{route.params.user}&apos;s Profile</Text>
     </View>
   );
 }

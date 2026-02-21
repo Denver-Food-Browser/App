@@ -16,8 +16,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
-  row: {
-    flexDirection: 'row',
-    gap: 10,
-  },
 });
