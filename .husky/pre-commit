@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd Denver-Food-Browser && npx lint-staged
+cd react-native && npx lint-staged

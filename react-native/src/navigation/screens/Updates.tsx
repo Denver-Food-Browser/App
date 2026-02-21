@@ -1,12 +1,13 @@
-import { Text } from '@react-navigation/elements';
-import { StyleSheet, View } from 'react-native';
+import { Text } from '@react-navigation/elements'
+import type React from 'react'
+import { StyleSheet, View } from 'react-native'
 
-export function Updates() {
+export function Updates(): React.JSX.Element {
   return (
     <View style={styles.container}>
       <Text>Updates Screen</Text>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -16,4 +17,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
-});
+})

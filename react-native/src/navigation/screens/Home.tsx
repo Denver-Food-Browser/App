@@ -1,7 +1,8 @@
 import { Button, Text } from '@react-navigation/elements'
+import type React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-export function Home() {
+export function Home(): React.JSX.Element {
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>

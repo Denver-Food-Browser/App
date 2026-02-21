@@ -1,10 +1,16 @@
 import { Text } from '@react-navigation/elements'
+import type { StaticScreenProps } from '@react-navigation/native'
+import type React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-export function Settings() {
+type Props = StaticScreenProps<{
+  user: string
+}>
+
+export function Profile({ route }: Props): React.JSX.Element {
   return (
     <View style={styles.container}>
-      <Text>Settings Screen</Text>
+      <Text>{route.params.user}&apos;s Profile</Text>
     </View>
   )
 }

@@ -1,11 +1,13 @@
 # Pull Request: ESLint and Prettier Configuration
 
 ## Summary
+
 This PR establishes a comprehensive linting and formatting setup for the React Native project, including ESLint, Prettier, Husky pre-commit hooks, and VS Code workspace configuration. The configuration includes accessibility (a11y) and security linting to ensure code quality, maintainability, and safety.
 
 ## Changes
 
 ### 📦 Dependencies Added
+
 ```json
 {
   "devDependencies": {
@@ -34,6 +36,7 @@ This PR establishes a comprehensive linting and formatting setup for the React N
 ### 🔧 Configuration Files
 
 #### `eslint.config.mts`
+
 - Modern flat config format (ESLint 9)
 - TypeScript type-aware linting enabled
 - React Native specific rules
@@ -42,6 +45,7 @@ This PR establishes a comprehensive linting and formatting setup for the React N
 - Prettier integration
 
 #### `.prettierrc.json`
+
 - Single quotes
 - 100 character line width
 - 2-space indentation
@@ -49,7 +53,9 @@ This PR establishes a comprehensive linting and formatting setup for the React N
 - ES5 trailing commas
 
 #### `tsconfig.json` - Enhanced Compiler Options
+
 Added strict type checking options:
+
 - `noUncheckedIndexedAccess`: Treat array/object access as potentially undefined
 - `noImplicitOverride`: Require 'override' keyword
 - `noPropertyAccessFromIndexSignature`: Enforce bracket notation for index signatures
@@ -61,7 +67,8 @@ Added strict type checking options:
 ### 📋 ESLint Rules Enabled
 
 #### React Rules
-- ✅ `react/jsx-no-target-blank`: error - Security fix for target="_blank"
+
+- ✅ `react/jsx-no-target-blank`: error - Security fix for target="\_blank"
 - ✅ `react/jsx-key`: error - Require keys in lists
 - ✅ `react/self-closing-comp`: warn - Enforce self-closing components
 - ✅ `react/jsx-boolean-value`: warn - Prefer `<Component prop />` over `<Component prop={true} />`
@@ -69,10 +76,12 @@ Added strict type checking options:
 - ✅ `react/jsx-no-useless-fragment`: warn - Remove unnecessary fragments
 
 #### React Hooks Rules (Critical)
+
 - ✅ `react-hooks/rules-of-hooks`: error - Enforce hooks order
 - ✅ `react-hooks/exhaustive-deps`: warn - Verify effect/callback/memo dependencies
 
 #### TypeScript Rules
+
 - ✅ `@typescript-eslint/no-explicit-any`: error - Disallow 'any' type
 - ✅ `@typescript-eslint/explicit-module-boundary-types`: warn - Require return types on exported functions
 - ✅ `@typescript-eslint/no-unused-vars`: warn - With ignore pattern for underscore-prefixed vars
@@ -83,6 +92,7 @@ Added strict type checking options:
 - ✅ `no-restricted-syntax`: error - **Disallow enums** (use const objects or union types)
 
 #### Accessibility (a11y) Rules - React Native Specific
+
 - ✅ `jsx-a11y/alt-text`: warn - Require alt text for images
 - ✅ `jsx-a11y/aria-props`: error - Valid ARIA props
 - ✅ `jsx-a11y/aria-proptypes`: error - Valid ARIA prop values
@@ -100,6 +110,7 @@ Added strict type checking options:
 **Note:** Web-only a11y rules disabled for React Native (anchor tags, iframes, etc.)
 
 #### Security Rules
+
 - ✅ `security/detect-buffer-noassert`: error - Unsafe Buffer usage
 - ✅ `security/detect-eval-with-expression`: error - eval() usage
 - ✅ `security/detect-new-buffer`: error - Deprecated Buffer constructor
@@ -116,15 +127,18 @@ Added strict type checking options:
 **Note:** `detect-object-injection` disabled due to excessive false positives in React code
 
 #### React Native Rules
+
 - ✅ `react-native/no-inline-styles`: warn
 - ✅ `react-native/no-unused-styles`: warn
 - ✅ `react-native/split-platform-components`: warn
 - ✅ `react-native/no-color-literals`: warn
 
 #### Import Organization
+
 - ✅ `import/order`: warn - Auto-organize and alphabetize imports with spacing
 
 #### Code Quality Rules
+
 - ✅ `no-console`: warn - Discourage console.log
 - ✅ `no-debugger`: error - Disallow debugger statements
 - ✅ `no-var`: error - Use let/const instead of var
@@ -136,10 +150,13 @@ Added strict type checking options:
 ### 🪝 Git Hooks (Husky + lint-staged)
 
 #### `.husky/pre-commit` (Fast - Every Commit)
+
 Runs on **every commit** for quick feedback:
+
 ```bash
 npx lint-staged
 ```
+
 - Lints **only staged files** with ESLint
 - Formats **only staged files** with Prettier
 - Auto-fixes what it can
@@ -147,11 +164,14 @@ npx lint-staged
 - Encourages frequent, clean commits
 
 #### `.husky/pre-push` (Thorough - Before Push)
+
 Runs **before pushing** to remote for comprehensive validation:
+
 ```bash
 npm run type-check
 npm run lint
 ```
+
 - Type-checks **entire project** with TypeScript
 - Lints **entire project** with ESLint
 - Catches cross-file issues and type errors
@@ -159,13 +179,16 @@ npm run lint
 - Prevents broken code from reaching remote
 
 #### Why This Approach?
+
 **Pre-commit (fast):**
+
 - ✅ Quick feedback loop during development
 - ✅ No waiting for full project checks
 - ✅ Encourages frequent commits
 - ✅ Catches formatting/simple errors immediately
 
 **Pre-push (thorough):**
+
 - ✅ Full type safety validation
 - ✅ Project-wide consistency checks
 - ✅ Still automated - can't bypass accidentally
@@ -174,16 +197,12 @@ npm run lint
 This split provides the best balance of speed and safety for team collaboration.
 
 #### `package.json` - lint-staged configuration
+
 ```json
 {
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,css}": [
-      "prettier --write"
-    ]
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,md,css}": ["prettier --write"]
   }
 }
 ```
@@ -191,7 +210,9 @@ This split provides the best balance of speed and safety for team collaboration.
 ### 💻 VS Code Integration
 
 #### `.vscode/extensions.json`
+
 Recommends extensions to team members:
+
 - ESLint (`dbaeumer.vscode-eslint`)
 - Prettier (`esbenp.prettier-vscode`)
 - Import Cost (`wix.vscode-import-cost`) - Shows package sizes
@@ -200,13 +221,16 @@ Recommends extensions to team members:
 - Pretty TS Errors (`yoavbls.pretty-ts-errors`) - Readable TypeScript errors
 
 #### `.vscode/settings.json`
+
 Workspace settings for consistent development:
+
 - Format on save enabled
 - ESLint auto-fix on save
 - Prettier as default formatter
 - Use workspace TypeScript version
 
 ### 📜 NPM Scripts Added
+
 ```json
 {
   "scripts": {
@@ -221,6 +245,7 @@ Workspace settings for consistent development:
 ```
 
 **Script descriptions:**
+
 - `lint` - Check all files for linting errors
 - `lint:fix` - Auto-fix linting errors where possible
 - `format` - Format all files with Prettier
@@ -231,6 +256,7 @@ Workspace settings for consistent development:
 ### 🗂️ Ignore Files
 
 #### `.prettierignore`
+
 ```
 node_modules/
 .expo/
@@ -243,6 +269,7 @@ coverage/
 ```
 
 #### Ignore patterns in `eslint.config.mts`
+
 - `node_modules/`, `.expo/`, `android/`, `ios/`
 - `dist/`, `build/`, `coverage/`
 - `*.config.js`, `*.config.mjs`
@@ -250,6 +277,7 @@ coverage/
 ### 🔤 Type Declarations
 
 Added TypeScript declaration files for ESLint plugins (no @types packages available):
+
 - `eslint-plugin-react-native.d.ts`
 - `eslint-plugin-jsx-a11y.d.ts`
 - `eslint-plugin-security.d.ts`
@@ -259,6 +287,7 @@ These provide type safety when importing ESLint plugins in the configuration fil
 ## Benefits
 
 ### 🛡️ Code Quality
+
 - **Catches bugs early**: Promise handling, hooks dependencies, array bounds
 - **Type safety**: Enforces TypeScript best practices
 - **Consistency**: Auto-formatting and organized imports
@@ -266,17 +295,20 @@ These provide type safety when importing ESLint plugins in the configuration fil
 - **Accessibility**: Ensures app is usable by people with disabilities
 
 ### 👥 Team Collaboration
+
 - **Automated**: Pre-commit hooks ensure code quality without manual intervention
 - **Consistent style**: No more debates about formatting
 - **Onboarding**: VS Code recommendations make setup easy for new developers
 - **Fast feedback**: Errors shown inline in editor
 
 ### 🚀 Performance
+
 - **Type-aware linting**: Catches logical errors TypeScript compiler misses
 - **Import organization**: Makes code easier to navigate
 - **Dead code detection**: Finds unused variables and styles
 
 ### 🔒 Security & Accessibility
+
 - **Vulnerability detection**: Catches unsafe patterns before they reach production
 - **ReDoS prevention**: Detects potentially dangerous regex patterns
 - **WCAG compliance**: Enforces accessibility best practices
@@ -285,6 +317,7 @@ These provide type safety when importing ESLint plugins in the configuration fil
 ## Migration Notes
 
 ### For Developers
+
 1. **First time setup**: Run `npm install` to get all dependencies
 2. **VS Code users**: Accept the prompt to install recommended extensions
 3. **Git hooks workflow**:
@@ -298,13 +331,16 @@ These provide type safety when importing ESLint plugins in the configuration fil
    - Use `git commit --no-verify` or `git push --no-verify` to bypass (not recommended)
 
 ### Current Lint Issues (9 warnings/errors)
+
 The following issues exist in the codebase and should be addressed:
+
 - **App.tsx**: 3 floating promise errors (need proper error handling)
 - **Component files**: 6 warnings for missing return types on exported functions
 
 These can be fixed incrementally and don't block this PR.
 
 ## Testing
+
 - ✅ `npm run lint` - Verifies all rules work correctly
 - ✅ `npm run format` - Formats all files successfully
 - ✅ `npm run type-check` - TypeScript compilation passes
@@ -315,10 +351,13 @@ These can be fixed incrementally and don't block this PR.
 - ✅ Security rules catching vulnerabilities
 
 ## Breaking Changes
+
 None. This is purely additive configuration.
 
 ## Future Enhancements
+
 Consider adding:
+
 - CI/CD integration (run linting in GitHub Actions)
 - Type coverage tracking
 - Bundle size analysis
