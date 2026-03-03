@@ -1,0 +1,33 @@
+{
+  "name": "denver-food-browser",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Denver Food Browser - Tauri app with Directus CMS",
+  "type": "module",
+  "scripts": {
+    "setup-env": "bun scripts/setup-env.ts",
+    "dev": "bun scripts/dev.ts desktop",
+    "dev:clean": "bun run clean && bun run dev",
+    "dev:ios": "bun scripts/dev.ts ios",
+    "dev:android": "bun scripts/dev.ts android",
+    "clean": "cd client/src-tauri && cargo clean && cd ../.. && rimraf client/build client/.svelte-kit client/node_modules/.vite",
+    "tauri:build": "bun setup-env && cd client && bun run tauri:build",
+    "cms:up": "cd cms && docker compose up",
+    "cms:down": "cd cms && docker compose down",
+    "cms:restart": "cd cms && docker compose restart",
+    "cms:snapshot": "bun scripts/snapshot.ts",
+    "cms:apply-snapshot": "bun scripts/apply-snapshot.ts",
+    "cms:seed": "bun scripts/seed.ts",
+    "cms:backup": "bun scripts/backup.ts",
+    "cms:restore": "bun scripts/restore.ts"
+  },
+  "workspaces": [
+    "client"
+  ],
+  "devDependencies": {
+    "@types/node": "^25.3.3"
+  },
+  "dependencies": {
+    "@types/bun": "^1.3.10"
+  }
+}
