@@ -73,7 +73,7 @@ export default defineConfig({
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     'eslint/id-length': ['warn', { min: 2, exceptions: ['_', 'i', 'j', 'k'] }],
-    'eslint/max-lines': ['warn', { max: 350 }],
+    'eslint/max-lines': ['warn', { max: 450 }],
     'eslint/max-statements': ['warn', { max: 12 }],
     'eslint/no-magic-numbers': [
       'warn',

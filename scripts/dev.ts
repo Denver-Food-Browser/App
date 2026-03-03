@@ -24,10 +24,6 @@ type ReadyState = {
   messageShown: boolean
 }
 
-type SharedReadyState = {
-  state: ReadyState
-}
-
 const DIRECTUS_URL = 'http://localhost:8055/server/health'
 const VITE_PORT = 1420
 const ARG_PLATFORM_INDEX = 2
@@ -64,31 +60,54 @@ function getPlatform(): Platform {
     : 'desktop'
 }
 
+type NetworkInterface = {
+  family: string
+  address: string
+  internal?: boolean
+}
+
+const isNetworkInterface = (net: unknown): net is NetworkInterface => {
+  if (typeof net !== 'object' || net === null) return false
+
+  if (!('family' in net) || typeof net.family !== 'string') return false
+
+  if (!('address' in net) || typeof net.address !== 'string') return false
+
+  if ('internal' in net && typeof net.internal !== 'boolean') return false
+
+  return true
+}
+
+// Check if network info contains IPv4 address
+function findIPv4Address(iface: unknown): string | undefined {
+  if (!Array.isArray(iface)) return undefined
+
+  for (const net of iface) {
+    if (typeof net !== 'object' || net === null) {
+      continue
+    }
+
+    if (isNetworkInterface(net) && net.family === 'IPv4' && !net.internal) {
+      return net.address
+    }
+  }
+
+  return undefined
+}
+
 // Get local IP address for Android HMR
 function getLocalIP(): string {
   const nets = networkInterfaces()
   const priorityInterfaces = ['en0', 'eth0', 'en1', 'wlan0']
 
   for (const interfaceName of priorityInterfaces) {
-    const iface = nets[interfaceName]
-    if (iface) {
-      for (const net of iface) {
-        if (net.family === 'IPv4' && !net.internal) {
-          return net.address
-        }
-      }
-    }
+    const ip = findIPv4Address(nets[interfaceName])
+    if (ip) return ip
   }
 
   for (const name of Object.keys(nets)) {
-    const iface = nets[name]
-    if (!iface) continue
-
-    for (const net of iface) {
-      if (net.family === 'IPv4' && !net.internal) {
-        return net.address
-      }
-    }
+    const ip = findIPv4Address(nets[name])
+    if (ip) return ip
   }
 
   return 'localhost'
@@ -243,39 +262,34 @@ const logReadyMessage = (platform: Platform): void => {
   )
 }
 
-const updateState = (
-  sharedState: SharedReadyState,
-  line: string,
-  platform: Platform,
-): void => {
+let currentReadyState: ReadyState | null = null
+
+const updateState = (line: string, platform: Platform): void => {
+  if (!currentReadyState) return
+
   if (checkViteReady(line)) {
-    sharedState.state.vite = true
-    console.log('🔍 DEBUG: Vite ready detected')
+    currentReadyState.vite = true
   }
   if (checkCargoReady(line)) {
-    sharedState.state.cargo = true
-    console.log('🔍 DEBUG: Cargo ready detected')
+    currentReadyState.cargo = true
   }
-  if (checkAppDeployed(line, platform, sharedState.state.cargo)) {
-    sharedState.state.app = true
-    console.log('🔍 DEBUG: App deployed detected')
+  if (checkAppDeployed(line, platform, currentReadyState.cargo)) {
+    currentReadyState.app = true
   }
 }
 
 const shouldShowMessage = (state: Readonly<ReadyState>): boolean =>
   state.vite && state.cargo && state.app && !state.messageShown
 
-const processLines = (
-  lines: Readonly<string[]>,
-  sharedState: SharedReadyState,
-  platform: Platform,
-): void => {
+const processLines = (lines: Readonly<string[]>, platform: Platform): void => {
+  if (!currentReadyState) return
+
   for (const line of lines) {
     console.log(line)
-    updateState(sharedState, line, platform)
-    if (shouldShowMessage(sharedState.state)) {
+    updateState(line, platform)
+    if (shouldShowMessage(currentReadyState)) {
       logReadyMessage(platform)
-      sharedState.state.messageShown = true
+      currentReadyState.messageShown = true
     }
   }
 }
@@ -292,7 +306,6 @@ const decodeBuffer = (
 
 const processBuffer = async (
   reader: Readonly<ReadableStreamDefaultReader<Uint8Array>>, // eslint-disable-line @typescript-eslint/prefer-readonly-parameter-types
-  sharedState: SharedReadyState,
   platform: Platform,
 ): Promise<void> => {
   let buffer = ''
@@ -301,17 +314,16 @@ const processBuffer = async (
     if (done) break
     const { lines, buffer: newBuffer } = decodeBuffer(buffer, value)
     buffer = newBuffer
-    processLines(lines, sharedState, platform)
+    processLines(lines, platform)
   }
 }
 
 const processOutput = async (
   stream: ReadableStream<Uint8Array>, // eslint-disable-line @typescript-eslint/prefer-readonly-parameter-types
-  sharedState: SharedReadyState,
   platform: Platform,
 ): Promise<void> => {
   const reader = stream.getReader()
-  await processBuffer(reader, sharedState, platform)
+  await processBuffer(reader, platform)
 }
 
 // Desktop/Android platform handler
@@ -333,18 +345,16 @@ async function runDesktopOrAndroidPlatform(
     stdout: 'pipe',
   })
 
-  const sharedState: SharedReadyState = {
-    state: {
-      vite: false,
-      cargo: false,
-      app: false,
-      messageShown: false,
-    },
+  currentReadyState = {
+    vite: false,
+    cargo: false,
+    app: false,
+    messageShown: false,
   }
 
   void Promise.all([
-    processOutput(proc.stdout, sharedState, platform),
-    processOutput(proc.stderr, sharedState, platform),
+    processOutput(proc.stdout, platform),
+    processOutput(proc.stderr, platform),
   ])
 
   const cleanup = (): void => {

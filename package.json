@@ -29,14 +29,15 @@
     "clean": "cd client/src-tauri && cargo clean && cd ../.. && rimraf client/build client/.svelte-kit client/node_modules/.vite",
     "prepare": "husky"
   },
+  "dependencies": {
+    "husky": "^9.1.7"
+  },
   "devDependencies": {
     "@types/bun": "^1.3.10",
     "@types/node": "^25.3.3",
     "oxfmt": "^0.36.0",
     "oxlint": "^1.51.0",
-    "oxlint-tsgolint": "^0.15.0"
-  },
-  "dependencies": {
-    "husky": "^9.1.7"
+    "oxlint-tsgolint": "^0.15.0",
+    "typescript": "^5.9.3"
   }
 }
