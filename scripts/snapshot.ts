@@ -1,7 +1,6 @@
 #!/usr/bin/env bun
 
-/* Enable top-level await */
-export {};
+/* oxlint-disable eslint/no-console */
 
 /**
  * Cross-platform Directus snapshot creator with timestamp
@@ -9,47 +8,52 @@ export {};
  */
 
 // Generate timestamp in YYYYMMDD-HHMMSS format
-const now = new Date();
+const TIMESTAMP_LENGTH = 15 // YYYYMMDD-HHMMSS format length
+const TIMESTAMP_START_INDEX = 0
+
+const now = new Date()
 const timestamp = now
   .toISOString()
-  .replace(/T/, "-")
-  .replace(/:/g, "")
-  .slice(0, 15); // Format: YYYYMMDD-HHMMSS
+  .replace(/T/, '-')
+  .replaceAll(':', '')
+  .slice(TIMESTAMP_START_INDEX, TIMESTAMP_LENGTH) // Format: YYYYMMDD-HHMMSS
 
-const snapshotFilename = `${timestamp}.yaml`;
-const snapshotPath = `/snapshots/${snapshotFilename}`;
+const snapshotFilename = `${timestamp}.yaml`
+const snapshotPath = `/snapshots/${snapshotFilename}`
 
-console.log(`📸 Creating Directus snapshot: snapshots/${snapshotFilename}`);
+console.log(`📸 Creating Directus snapshot: snapshots/${snapshotFilename}`)
 
 // Run the snapshot command inside the Directus Docker container
 const proc = Bun.spawn(
   [
-    "docker",
-    "compose",
-    "exec",
-    "directus",
-    "npx",
-    "directus",
-    "schema",
-    "snapshot",
+    'docker',
+    'compose',
+    'exec',
+    'directus',
+    'npx',
+    'directus',
+    'schema',
+    'snapshot',
     snapshotPath,
   ],
   {
-    cwd: "./cms",
-    stdout: "inherit",
-    stderr: "inherit",
-    stdin: "inherit",
+    cwd: './cms',
+    stderr: 'inherit',
+    stdin: 'inherit',
+    stdout: 'inherit',
   },
-);
+)
 
-const exitCode = await proc.exited;
+const SUCCESS_EXIT_CODE = 0
 
-if (exitCode === 0) {
+const exitCode = await proc.exited
+
+if (exitCode === SUCCESS_EXIT_CODE) {
   console.log(
     `✅ Snapshot created successfully: cms/snapshots/${snapshotFilename}`,
-  );
+  )
 } else {
-  console.error(`❌ Snapshot creation failed with exit code ${exitCode}`);
+  console.error(`❌ Snapshot creation failed with exit code ${exitCode}`)
 }
 
-process.exit(exitCode);
+process.exit(exitCode)

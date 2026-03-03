@@ -1,90 +1,94 @@
 #!/usr/bin/env bun
 
-/* Enable top-level await */
-export {};
-
 /**
  * Cross-platform Directus snapshot applicator
  * Runs inside the Docker container
  */
 
+/* oxlint-disable no-console */
+
 // Get the snapshot filename from command line arguments
-const snapshotFile = process.argv[2];
+const [, , snapshotFile] = process.argv
 
 if (!snapshotFile) {
-  console.error("❌ Error: No snapshot file specified");
-  console.log("\nUsage: bun run cms:apply-snapshot <snapshot-file>");
+  console.error('❌ Error: No snapshot file specified')
+  console.log('\nUsage: bun run cms:apply-snapshot <snapshot-file>')
   console.log(
-    "Example: bun run cms:apply-snapshot snapshots/20260302-143045.yaml",
-  );
-  console.log("\nAvailable snapshots:");
+    'Example: bun run cms:apply-snapshot snapshots/20260302-143045.yaml',
+  )
+  console.log('\nAvailable snapshots:')
 
   // List available snapshots
-  const snapshotsDir = "./cms/snapshots";
+  const snapshotsDir = './cms/snapshots'
   const files = await Array.fromAsync(
-    new Bun.Glob("*.yaml").scan({ cwd: snapshotsDir }),
-  );
+    new Bun.Glob('*.yaml').scan({ cwd: snapshotsDir }),
+  )
 
+  // oxlint-disable-next-line eslint/no-magic-numbers
   if (files.length === 0) {
-    console.log("  (none found)");
+    console.log('  (none found)')
   } else {
-    files.sort().reverse(); // Most recent first
+    files.toSorted().reverse() // Most recent first
     for (const file of files) {
-      console.log(`  - ${file}`);
+      console.log(`  - ${file}`)
     }
   }
 
-  process.exit(1);
+  process.exit(1) // oxlint-disable-line eslint/no-magic-numbers
 }
 
 // Resolve the snapshot path - extract just the filename
-let filename: string;
-if (snapshotFile.includes("/")) {
+let filename: string
+if (snapshotFile.includes('/')) {
   // Extract filename from path (e.g., "./cms/snapshots/file.yaml" -> "file.yaml")
-  const parts = snapshotFile.split("/");
-  filename = parts[parts.length - 1];
+  const parts = snapshotFile.split('/')
+  const lastPart = parts.at(-1) // oxlint-disable-line eslint/no-magic-numbers
+  if (!lastPart) {
+    throw new Error('Filename not at end of path - is this a directory?')
+  }
+  filename = lastPart
 } else {
   // Already just a filename
-  filename = snapshotFile;
+  filename = snapshotFile
 }
 
 // Path inside the Docker container
-const snapshotPath = `/snapshots/${filename}`;
+const snapshotPath = `/snapshots/${filename}`
 
-console.log(`📥 Applying Directus snapshot from: ${snapshotFile}`);
-console.log(`   Container path: ${snapshotPath}`);
+console.log(`📥 Applying Directus snapshot from: ${snapshotFile}`)
+console.log(`   Container path: ${snapshotPath}`)
 console.log(
-  "\n⚠️  Warning: This will modify your database schema. Make sure you have a backup!",
-);
+  '\n⚠️  Warning: This will modify your database schema. Make sure you have a backup!',
+)
 
 // Run the schema apply command inside the Directus Docker container
 const proc = Bun.spawn(
   [
-    "docker",
-    "compose",
-    "exec",
-    "directus",
-    "npx",
-    "directus",
-    "schema",
-    "apply",
+    'docker',
+    'compose',
+    'exec',
+    'directus',
+    'npx',
+    'directus',
+    'schema',
+    'apply',
     snapshotPath,
-    "--yes", // Auto-confirm
+    '--yes', // Auto-confirm
   ],
   {
-    cwd: "./cms",
-    stdout: "inherit",
-    stderr: "inherit",
-    stdin: "inherit",
+    cwd: './cms',
+    stderr: 'inherit',
+    stdin: 'inherit',
+    stdout: 'inherit',
   },
-);
+)
 
-const exitCode = await proc.exited;
+const exitCode = await proc.exited
 
 if (exitCode === 0) {
-  console.log(`\n✅ Snapshot applied successfully!`);
+  console.log(`\n✅ Snapshot applied successfully!`)
 } else {
-  console.error(`\n❌ Snapshot application failed with exit code ${exitCode}`);
+  console.error(`\n❌ Snapshot application failed with exit code ${exitCode}`)
 }
 
-process.exit(exitCode);
+process.exit(exitCode)

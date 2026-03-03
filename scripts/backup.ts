@@ -1,111 +1,115 @@
 #!/usr/bin/env bun
 
-/* Enable top-level await */
-export {};
-
 /**
  * Complete Directus backup: schema snapshot + database dump
  */
 
+/* oxlint-disable no-console */
+
 // Generate timestamp in YYYYMMDD-HHMMSS format
-const now = new Date();
+const TIMESTAMP_LENGTH = 15 // YYYYMMDD-HHMMSS format length
+const TIMESTAMP_START_INDEX = 0
+
+// Generate timestamp in YYYYMMDD-HHMMSS format
+const now = new Date()
 const timestamp = now
   .toISOString()
-  .replace(/T/, "-")
-  .replace(/:/g, "")
-  .slice(0, 15); // Format: YYYYMMDD-HHMMSS
+  .replace(/T/, '-')
+  .replaceAll(':', '')
+  .slice(TIMESTAMP_START_INDEX, TIMESTAMP_LENGTH) // Format: YYYYMMDD-HHMMSS
 
-const backupDir = `./cms/backups/${timestamp}`;
+const backupDir = `./cms/backups/${timestamp}`
 
-console.log(`💾 Creating complete Directus backup: ${timestamp}\n`);
+console.log(`💾 Creating complete Directus backup: ${timestamp}\n`)
 
 // Create backup directory
-const mkdirProc = Bun.spawn(["mkdir", "-p", backupDir], {
-  stdout: "inherit",
-  stderr: "inherit",
-});
-await mkdirProc.exited;
+const mkdirProc = Bun.spawn(['mkdir', '-p', backupDir], {
+  stderr: 'inherit',
+  stdout: 'inherit',
+})
+await mkdirProc.exited
 
 // 1. Create schema snapshot
-console.log("📸 Creating schema snapshot...");
-const snapshotPath = `/snapshots/${timestamp}-schema.yaml`;
+console.log('📸 Creating schema snapshot...')
+const snapshotPath = `/snapshots/${timestamp}-schema.yaml`
 const snapshotProc = Bun.spawn(
   [
-    "docker",
-    "compose",
-    "exec",
-    "-T",
-    "directus",
-    "npx",
-    "directus",
-    "schema",
-    "snapshot",
+    'docker',
+    'compose',
+    'exec',
+    '-T',
+    'directus',
+    'npx',
+    'directus',
+    'schema',
+    'snapshot',
     snapshotPath,
   ],
   {
-    cwd: "./cms",
-    stdout: "inherit",
-    stderr: "inherit",
+    cwd: './cms',
+    stderr: 'inherit',
+    stdout: 'inherit',
   },
-);
+)
 
-let exitCode = await snapshotProc.exited;
+let exitCode = await snapshotProc.exited
 if (exitCode !== 0) {
-  console.error("❌ Schema snapshot failed");
-  process.exit(exitCode);
+  console.error('❌ Schema snapshot failed')
+  process.exit(exitCode)
 }
 
 // Move snapshot to backup directory
 const mvSnapshotProc = Bun.spawn(
   [
-    "mv",
+    'mv',
     `./cms/snapshots/${timestamp}-schema.yaml`,
     `${backupDir}/schema.yaml`,
   ],
   {
-    stdout: "inherit",
-    stderr: "inherit",
+    stderr: 'inherit',
+    stdout: 'inherit',
   },
-);
-await mvSnapshotProc.exited;
+)
+await mvSnapshotProc.exited
 
-console.log("✅ Schema snapshot created\n");
+console.log('✅ Schema snapshot created\n')
 
 // 2. Copy SQLite database file
-console.log("🗄️  Backing up database...");
+console.log('🗄️  Backing up database...')
 const dbCopyProc = Bun.spawn(
-  ["cp", "-r", "./cms/database", `${backupDir}/database`],
+  ['cp', '-r', './cms/database', `${backupDir}/database`],
   {
-    stdout: "inherit",
-    stderr: "inherit",
+    stderr: 'inherit',
+    stdout: 'inherit',
   },
-);
+)
 
-exitCode = await dbCopyProc.exited;
+exitCode = await dbCopyProc.exited
 if (exitCode !== 0) {
-  console.error("❌ Database backup failed");
-  process.exit(exitCode);
+  console.error('❌ Database backup failed')
+  process.exit(exitCode)
 }
 
-console.log("✅ Database backed up\n");
+console.log('✅ Database backed up\n')
 
 // Create backup metadata
 const metadata = {
-  timestamp,
-  date: now.toISOString(),
-  type: "full",
   contents: {
-    schema: "schema.yaml",
-    database: "database/",
+    schema: 'schema.yaml',
+    database: 'database/',
   },
-};
+  date: now.toISOString(),
+  timestamp,
+  type: 'full',
+}
 
+const TAB_LENGTH = 2
 await Bun.write(
   `${backupDir}/metadata.json`,
-  JSON.stringify(metadata, null, 2),
-);
+  JSON.stringify(metadata, null, TAB_LENGTH),
+)
 
-console.log(`✨ Backup completed successfully!`);
-console.log(`   Location: ${backupDir}`);
-console.log(`   Schema: ${backupDir}/schema.yaml`);
-console.log(`   Database: ${backupDir}/database/`);
+console.log(`✨ Backup completed successfully!`)
+console.log(`   Location: ${backupDir}`)
+console.log(`   Schema: ${backupDir}/schema.yaml`)
+console.log(`   Database: ${backupDir}/database/`)

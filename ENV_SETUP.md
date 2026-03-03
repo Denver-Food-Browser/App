@@ -240,6 +240,7 @@ bun run cms:down
 **Best Practices:**
 
 1. **Always pull the latest schema before making changes:**
+
    ```bash
    git pull                                # Get latest snapshot from repo
    bun run cms:backup                      # Backup your local state first
@@ -252,6 +253,7 @@ bun run cms:down
    - One person makes schema changes at a time
 
 3. **After making schema changes:**
+
    ```bash
    bun run cms:snapshot                    # Create new snapshot
    git add cms/snapshots/<new-snapshot>    # Add to git
@@ -268,18 +270,21 @@ bun run cms:down
 **Why this matters:** If Developer A creates a `venues` collection, takes a snapshot, and Developer B (working from an older snapshot without `venues`) takes a new snapshot and commits it, the `venues` collection will be lost when anyone applies Developer B's snapshot.
 
 **Recommended Workflow:**
+
 - Use snapshots for version control and deployment
 - Always work from the latest snapshot in the repo
 - Create backups before applying snapshots
 - Communicate schema changes to avoid conflicts
 
 **Version Control:**
+
 - ✅ **Commit snapshots** (`cms/snapshots/*.yaml`) - These are schema definitions and should be tracked in git
 - ❌ **Don't commit backups** (`cms/backups/`) - These contain full database data and are in `.gitignore`
 - ❌ **Don't commit database** (`cms/database/`) - Local data only, in `.gitignore`
 
 **Best Practice - Isolated snapshot commits:**
 Create a dedicated commit for each snapshot to keep schema history clear:
+
 ```bash
 # Make your schema changes in Directus UI
 bun run cms:snapshot
@@ -300,39 +305,51 @@ This keeps your git history clean - schema changes are easy to identify and reve
 ### Database Operations
 
 **Create a snapshot (schema only):**
+
 ```bash
 bun run cms:snapshot
 ```
+
 Creates a timestamped YAML snapshot of your Directus schema (collections, fields, relations) in `cms/snapshots/`.
 
 **Apply a snapshot:**
+
 ```bash
 bun run cms:apply-snapshot <filename.yaml>
 ```
+
 Applies schema from a snapshot. **Warning:** This will remove collections that aren't in the snapshot (though data in existing collections is preserved). Always create a backup before applying snapshots.
 
 **Seed data:**
+
 ```bash
 bun run cms:seed
 ```
+
 Runs all seed scripts in `cms/seed/` to populate collections with data. Requires admin credentials (uses environment variables `DIRECTUS_ADMIN_EMAIL` and `DIRECTUS_ADMIN_PASSWORD`, or prompts if not set).
 
 **Create a complete backup (schema + data):**
+
 ```bash
 bun run cms:backup
 ```
+
 Creates a timestamped backup in `cms/backups/YYYYMMDD-HHMMSS/` containing:
+
 - `schema.yaml` - Directus schema snapshot
 - `database.sql` - Complete PostgreSQL database dump
 - `metadata.json` - Backup information
 
 **Restore from backup:**
+
 ```bash
 bun run cms:restore <backup-directory>
 ```
+
 Restores both schema and data from a backup. **Warning:** This completely replaces your current database.
 
 Examples:
+
 ```bash
 bun run cms:restore 20260302-143045
 bun run cms:restore cms/backups/20260302-143045
@@ -343,6 +360,7 @@ If you don't specify a backup directory, it will list all available backups.
 ### Typical Workflow
 
 **Setting up a new environment:**
+
 ```bash
 bun run cms:up                          # Start Directus
 bun run cms:apply-snapshot schema.yaml  # Apply schema
@@ -350,6 +368,7 @@ bun run cms:seed                        # Populate data
 ```
 
 **Before making schema changes:**
+
 ```bash
 bun run cms:backup                      # Create backup first!
 # Make your changes in the Directus UI
@@ -357,6 +376,7 @@ bun run cms:snapshot                    # Save schema changes
 ```
 
 **Disaster recovery:**
+
 ```bash
 bun run cms:restore 20260302-143045     # Restore from backup
 ```
@@ -367,22 +387,22 @@ Seed scripts should only insert data, not create schema. Create a file in `cms/s
 
 ```typescript
 interface SeedContext {
-  accessToken: string;
-  directusUrl: string;
+  accessToken: string
+  directusUrl: string
 }
 
 export default async function seed(context: SeedContext) {
-  const { accessToken, directusUrl } = context;
+  const { accessToken, directusUrl } = context
 
   // Insert data using Directus REST API
   const res = await fetch(`${directusUrl}/items/your_collection`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(yourData),
-  });
+  })
 }
 ```
 
