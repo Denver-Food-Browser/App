@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Lint code
+echo "🔍 Linting code..."
+bun run lint || exit 1
+
+# Type check
+echo "📝 Type checking..."
+bun run typecheck || exit 1
+
+echo "✅ Pre-push checks passed!"

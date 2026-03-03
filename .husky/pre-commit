@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Format code
+echo "🎨 Formatting code..."
+bun run format || exit 1
+
+# Lint code
+echo "🔍 Linting code..."
+bun run lint || exit 1
+
+# Type check
+echo "📝 Type checking..."
+bun run typecheck || exit 1
+
+echo "✅ Pre-commit checks passed!"

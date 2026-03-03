@@ -2,6 +2,14 @@ import { defineConfig } from 'oxlint'
 
 export default defineConfig({
   ignorePatterns: ['**/bun.lock', '**/bun.lockb', 'bun.lock', 'bun.lockb'],
+  overrides: [
+    {
+      files: ['**/*.svelte'],
+      rules: {
+        'eslint/prefer-const': 'off',
+      },
+    },
+  ],
   categories: {
     perf: 'warn',
     style: 'warn',

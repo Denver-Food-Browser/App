@@ -1,7 +1,7 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
 
-  const name = $state("");
+  let name = $state("");
   let greetMsg = $state("");
 
   async function greet(event: Event): Promise<void> {
@@ -12,7 +12,7 @@
 </script>
 
 <main class="container">
-  <h1>Hello denver</h1>
+  <h1>Denver Food Browser</h1>
 
   <div class="row">
     <a href="https://vite.dev" target="_blank">

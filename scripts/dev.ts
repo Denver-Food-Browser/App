@@ -7,6 +7,8 @@
 
 /* oxlint-disable eslint/no-console */
 
+import { networkInterfaces } from 'node:os'
+
 type Platform = 'desktop' | 'android' | 'ios'
 
 type PlatformConfig = {
@@ -20,6 +22,10 @@ type ReadyState = {
   cargo: boolean
   app: boolean
   messageShown: boolean
+}
+
+type SharedReadyState = {
+  state: ReadyState
 }
 
 const DIRECTUS_URL = 'http://localhost:8055/server/health'
@@ -56,6 +62,36 @@ function getPlatform(): Platform {
   return platformArg === 'android' || platformArg === 'ios'
     ? platformArg
     : 'desktop'
+}
+
+// Get local IP address for Android HMR
+function getLocalIP(): string {
+  const nets = networkInterfaces()
+  const priorityInterfaces = ['en0', 'eth0', 'en1', 'wlan0']
+
+  for (const interfaceName of priorityInterfaces) {
+    const iface = nets[interfaceName]
+    if (iface) {
+      for (const net of iface) {
+        if (net.family === 'IPv4' && !net.internal) {
+          return net.address
+        }
+      }
+    }
+  }
+
+  for (const name of Object.keys(nets)) {
+    const iface = nets[name]
+    if (!iface) continue
+
+    for (const net of iface) {
+      if (net.family === 'IPv4' && !net.internal) {
+        return net.address
+      }
+    }
+  }
+
+  return 'localhost'
 }
 
 // Environment setup
@@ -176,7 +212,7 @@ const checkAppDeployed = (
   cargoReady: boolean,
 ): boolean => {
   if (platform === 'android') {
-    return /(Starting:|Activity.*started|successfully installed)/.test(line)
+    return /^(Success|Starting: Intent)/i.test(line.trim())
   }
   return cargoReady
 }
@@ -208,15 +244,22 @@ const logReadyMessage = (platform: Platform): void => {
 }
 
 const updateState = (
-  state: Readonly<ReadyState>,
+  sharedState: SharedReadyState,
   line: string,
   platform: Platform,
-): ReadyState => {
-  const newState = { ...state }
-  if (checkViteReady(line)) newState.vite = true
-  if (checkCargoReady(line)) newState.cargo = true
-  if (checkAppDeployed(line, platform, newState.cargo)) newState.app = true
-  return newState
+): void => {
+  if (checkViteReady(line)) {
+    sharedState.state.vite = true
+    console.log('🔍 DEBUG: Vite ready detected')
+  }
+  if (checkCargoReady(line)) {
+    sharedState.state.cargo = true
+    console.log('🔍 DEBUG: Cargo ready detected')
+  }
+  if (checkAppDeployed(line, platform, sharedState.state.cargo)) {
+    sharedState.state.app = true
+    console.log('🔍 DEBUG: App deployed detected')
+  }
 }
 
 const shouldShowMessage = (state: Readonly<ReadyState>): boolean =>
@@ -224,19 +267,17 @@ const shouldShowMessage = (state: Readonly<ReadyState>): boolean =>
 
 const processLines = (
   lines: Readonly<string[]>,
-  state: Readonly<ReadyState>,
+  sharedState: SharedReadyState,
   platform: Platform,
-): ReadyState => {
-  let currentState = state
+): void => {
   for (const line of lines) {
     console.log(line)
-    currentState = updateState(currentState, line, platform)
-    if (shouldShowMessage(currentState)) {
+    updateState(sharedState, line, platform)
+    if (shouldShowMessage(sharedState.state)) {
       logReadyMessage(platform)
-      currentState = { ...currentState, messageShown: true }
+      sharedState.state.messageShown = true
     }
   }
-  return currentState
 }
 
 const decodeBuffer = (
@@ -251,27 +292,26 @@ const decodeBuffer = (
 
 const processBuffer = async (
   reader: Readonly<ReadableStreamDefaultReader<Uint8Array>>, // eslint-disable-line @typescript-eslint/prefer-readonly-parameter-types
-  initialState: Readonly<ReadyState>,
+  sharedState: SharedReadyState,
   platform: Platform,
 ): Promise<void> => {
   let buffer = ''
-  let state = initialState
   while (true) {
     const { done, value } = await reader.read() // oxlint-disable-line no-await-in-loop
     if (done) break
     const { lines, buffer: newBuffer } = decodeBuffer(buffer, value)
     buffer = newBuffer
-    state = processLines(lines, state, platform)
+    processLines(lines, sharedState, platform)
   }
 }
 
 const processOutput = async (
   stream: ReadableStream<Uint8Array>, // eslint-disable-line @typescript-eslint/prefer-readonly-parameter-types
-  state: Readonly<ReadyState>,
+  sharedState: SharedReadyState,
   platform: Platform,
 ): Promise<void> => {
   const reader = stream.getReader()
-  await processBuffer(reader, state, platform)
+  await processBuffer(reader, sharedState, platform)
 }
 
 // Desktop/Android platform handler
@@ -283,23 +323,28 @@ async function runDesktopOrAndroidPlatform(
 
   if (!config.command) process.exit(ERROR_EXIT_CODE)
 
+  const env = platform === 'android' ? { TAURI_DEV_HOST: getLocalIP() } : {}
+
   const proc = Bun.spawn([...config.command], {
     cwd: './client',
+    env: { ...process.env, ...env },
     stderr: 'pipe',
     stdin: 'inherit',
     stdout: 'pipe',
   })
 
-  const readyState: ReadyState = {
-    vite: false,
-    cargo: false,
-    app: false,
-    messageShown: false,
+  const sharedState: SharedReadyState = {
+    state: {
+      vite: false,
+      cargo: false,
+      app: false,
+      messageShown: false,
+    },
   }
 
   void Promise.all([
-    processOutput(proc.stdout, readyState, platform),
-    processOutput(proc.stderr, readyState, platform),
+    processOutput(proc.stdout, sharedState, platform),
+    processOutput(proc.stderr, sharedState, platform),
   ])
 
   const cleanup = (): void => {

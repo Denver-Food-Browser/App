@@ -107,12 +107,24 @@ trap cleanup INT TERM
 # Clean up any previous state files
 rm -f /tmp/tauri_ios_vite_ready /tmp/tauri_ios_cargo_ready /tmp/tauri_ios_app_deployed /tmp/tauri_ios_ready_shown
 
+# Detect local IP for HMR
+LOCAL_IP=$(ifconfig | grep -E "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -n 1)
+if [ -z "$LOCAL_IP" ]; then
+  LOCAL_IP="localhost"
+fi
+
+echo "🔍 Detected local IP: $LOCAL_IP"
+echo "   Setting TAURI_DEV_HOST for HMR support"
+echo ""
+
 # Check if Vite is already running (it usually is since dev.ts starts it first)
 if curl -sf http://localhost:1420 > /dev/null 2>&1; then
   touch /tmp/tauri_ios_vite_ready
 fi
 
 # Start Tauri with selected device and monitor output
+# Export TAURI_DEV_HOST so Vite HMR uses the local IP
+export TAURI_DEV_HOST="$LOCAL_IP"
 bun run tauri ios dev "$SELECTED_DEVICE_NAME" 2>&1 | while IFS= read -r line; do
   echo "$line"
 
