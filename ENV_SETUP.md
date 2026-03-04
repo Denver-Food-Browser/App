@@ -1,6 +1,6 @@
 # Environment Setup Guide
 
-This guide explains how the environment configuration works for the Denver Food Browser app, particularly for mobile development with an API service running in Docker.
+This guide explains how the environment configuration works for the Denver Food Browser app, particularly for mobile development with an API service running in Docker. For video walkthrough, visit https://drive.google.com/file/d/14NLqYK8BmVEM2x-tbu0S7xnTuZ-AndIO/view
 
 ## Problems
 
