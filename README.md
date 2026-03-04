@@ -20,6 +20,10 @@ Content is managed by [Directus](https://directus.io/solutions/backend-as-a-serv
 
 ### Installations
 
+#### Docker
+
+You will need Docker installed on your machine in order to run Directus.
+
 #### Bun
 
 Follow Bun's [installation instructions](https://bun.com). This project uses Bun for its package manager and JavaScript runtime with near-complete feature parity with Node.js. Just replace `npm` with `bun` and you're set. TypeScript support is built-in, allowing us to skip the complexity of compilation steps, module extensions, commonjs. Just run TypeScript files directly with the executable.
