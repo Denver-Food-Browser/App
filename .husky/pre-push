@@ -4,6 +4,10 @@
 echo "🔍 Linting code..."
 bun run lint || exit 1
 
+# Format codd
+echo "🎨 Formatting code..."
+bun run format || exit 1
+
 # Type check
 echo "📝 Type checking..."
 bun run typecheck || exit 1
