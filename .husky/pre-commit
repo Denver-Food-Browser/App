@@ -1,3 +1,5 @@
+#  Run the following on every commit
+
 #!/bin/sh
 
 # Format code

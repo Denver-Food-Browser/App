@@ -30,7 +30,7 @@ Follow Bun's [installation instructions](https://bun.com). This project uses Bun
 
 #### Tauri
 
-Follow the [prequisite instructions](https://tauri.app/start/prerequisites/) to install Tauri's dependencies. These will include:
+Follow the [prerequisite instructions](https://tauri.app/start/prerequisites/) to install Tauri's dependencies. These will include:
 
 - Rust
 - Node.js LTS (Yes, even with Bun, a Node.js LTS installation is still necessary)
@@ -44,7 +44,7 @@ Follow the [prequisite instructions](https://tauri.app/start/prerequisites/) to 
 - oxlint and oxfmt - The `ox-` prefix refers to "oxidation," because these are Rust-based tools for ensuring code-quality and code-style adherence.
 - Svelte for VS Code - includes Svelte-specific syntax highlighting, linting and helpers
 - Tauri - adds VS Code Command Palette build commands
-- Rust Analyzer - Rust specific syntax highlighing, linting, etc.
+- Rust Analyzer - Rust specific syntax highlighting, linting, etc.
 
 ## Branching and Deployment
 

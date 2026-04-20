@@ -1,10 +1,12 @@
+#  Run the following on every push
+
 #!/bin/sh
 
 # Lint code
 echo "🔍 Linting code..."
 bun run lint || exit 1
 
-# Format codd
+# Format code
 echo "🎨 Formatting code..."
 bun run format || exit 1
 

@@ -1,3 +1,4 @@
+/*  Recommended extensions to install within VS Code IDE */
 {
   "recommendations": [
     "oxc.oxc-vscode",

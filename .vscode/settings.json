@@ -1,3 +1,4 @@
+/*  Project-wide settings within VS Code IDE */
 {
   "oxc.enable": true,
   "editor.formatOnSave": true,
