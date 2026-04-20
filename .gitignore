@@ -1,0 +1,4 @@
+**/.env
+**/node_modules
+cms/database/data.db
+.directus-template-cli/**

@@ -1,0 +1,458 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		23C569B9DAC544BD8C68B8EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0FBCFEDFF624B1F7BA0E7BE /* UIKit.framework */; };
+		3EBCAAD673D19E5416309EB9 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 08C1375EA21EDAE7C25B5C0F /* main.mm */; };
+		667D9DE748F82ABAE89C44CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43EC729221E98E55FEE12B84 /* LaunchScreen.storyboard */; };
+		7D27AA62CD08BBAC32908FE2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2AB294020ED16117B0C3BD /* WebKit.framework */; };
+		8D3E4830B08F655BAE89AE52 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 774E932A2FE27C3BFFA521F7 /* Security.framework */; };
+		9CD8C6A83FB5DF6E939AA3E7 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B052AA565DB43628403D3C1 /* MetalKit.framework */; };
+		A73C6023BDD9C182C0520856 /* libapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88430C60B5FDDBC7806D79A3 /* libapp.a */; };
+		A7A87DCF7BB156C19694608A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2C7BFEDF9ED11BA47E3BC8 /* CoreGraphics.framework */; };
+		A86440051A6A9381B842052B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 917DDA003FCA6727D3FAB3CB /* Assets.xcassets */; };
+		C7A23D9B602F5599655C83B2 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 6C156A79A5E7B70E759CA2AC /* assets */; };
+		CC909F611D64D61285758BF9 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030B9E45E20E6FD8FE954975 /* Metal.framework */; };
+		E2526DF209384139E4AFD17B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E34290482F7CEE010B897EC /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		00A89872B2EF1394811BC837 /* main.rs */ = {isa = PBXFileReference; path = main.rs; sourceTree = "<group>"; };
+		030B9E45E20E6FD8FE954975 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		08C1375EA21EDAE7C25B5C0F /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		2DD34390365A8A15F4B76F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		43EC729221E98E55FEE12B84 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		501A990500C11E70A2C1FAD9 /* denver-food-browser_iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "denver-food-browser_iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		64C7D41A8ACC230DC4C39CF3 /* denver-food-browser_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "denver-food-browser_iOS.entitlements"; sourceTree = "<group>"; };
+		6C156A79A5E7B70E759CA2AC /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = SOURCE_ROOT; };
+		6E34290482F7CEE010B897EC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		774E932A2FE27C3BFFA521F7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		88430C60B5FDDBC7806D79A3 /* libapp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libapp.a; sourceTree = "<group>"; };
+		8EE09721DDDA9B860982FB52 /* lib.rs */ = {isa = PBXFileReference; path = lib.rs; sourceTree = "<group>"; };
+		917DDA003FCA6727D3FAB3CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9A2C7BFEDF9ED11BA47E3BC8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9B052AA565DB43628403D3C1 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		C0FBCFEDFF624B1F7BA0E7BE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F7E60ED5B4C23CA3C8BF1C92 /* bindings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bindings.h; sourceTree = "<group>"; };
+		FA2AB294020ED16117B0C3BD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BD98C221A77C31E05B581601 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A73C6023BDD9C182C0520856 /* libapp.a in Frameworks */,
+				A7A87DCF7BB156C19694608A /* CoreGraphics.framework in Frameworks */,
+				CC909F611D64D61285758BF9 /* Metal.framework in Frameworks */,
+				9CD8C6A83FB5DF6E939AA3E7 /* MetalKit.framework in Frameworks */,
+				E2526DF209384139E4AFD17B /* QuartzCore.framework in Frameworks */,
+				8D3E4830B08F655BAE89AE52 /* Security.framework in Frameworks */,
+				23C569B9DAC544BD8C68B8EB /* UIKit.framework in Frameworks */,
+				7D27AA62CD08BBAC32908FE2 /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		014FA61F2BF0802B23E271EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				501A990500C11E70A2C1FAD9 /* denver-food-browser_iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		03D58E9CEBC288A04DC6BF16 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C4A29B937A21721FE320D2FC /* denver-food-browser */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		2D72510BE9E51A39CB7CAC4D /* denver-food-browser_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				64C7D41A8ACC230DC4C39CF3 /* denver-food-browser_iOS.entitlements */,
+				2DD34390365A8A15F4B76F82 /* Info.plist */,
+			);
+			path = "denver-food-browser_iOS";
+			sourceTree = "<group>";
+		};
+		339286CF06BBE481FF57E468 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A2C7BFEDF9ED11BA47E3BC8 /* CoreGraphics.framework */,
+				88430C60B5FDDBC7806D79A3 /* libapp.a */,
+				030B9E45E20E6FD8FE954975 /* Metal.framework */,
+				9B052AA565DB43628403D3C1 /* MetalKit.framework */,
+				6E34290482F7CEE010B897EC /* QuartzCore.framework */,
+				774E932A2FE27C3BFFA521F7 /* Security.framework */,
+				C0FBCFEDFF624B1F7BA0E7BE /* UIKit.framework */,
+				FA2AB294020ED16117B0C3BD /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7DE3D36CFD3DF1A2F7587DEA = {
+			isa = PBXGroup;
+			children = (
+				6C156A79A5E7B70E759CA2AC /* assets */,
+				917DDA003FCA6727D3FAB3CB /* Assets.xcassets */,
+				43EC729221E98E55FEE12B84 /* LaunchScreen.storyboard */,
+				2D72510BE9E51A39CB7CAC4D /* denver-food-browser_iOS */,
+				B98B7EC1CFEF9D0283EB2F24 /* Externals */,
+				03D58E9CEBC288A04DC6BF16 /* Sources */,
+				C5830CBC5D412F010418730F /* src */,
+				339286CF06BBE481FF57E468 /* Frameworks */,
+				014FA61F2BF0802B23E271EF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B98B7EC1CFEF9D0283EB2F24 /* Externals */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Externals;
+			sourceTree = "<group>";
+		};
+		C3DBB41236DA67814AB2DE02 /* bindings */ = {
+			isa = PBXGroup;
+			children = (
+				F7E60ED5B4C23CA3C8BF1C92 /* bindings.h */,
+			);
+			path = bindings;
+			sourceTree = "<group>";
+		};
+		C4A29B937A21721FE320D2FC /* denver-food-browser */ = {
+			isa = PBXGroup;
+			children = (
+				08C1375EA21EDAE7C25B5C0F /* main.mm */,
+				C3DBB41236DA67814AB2DE02 /* bindings */,
+			);
+			path = "denver-food-browser";
+			sourceTree = "<group>";
+		};
+		C5830CBC5D412F010418730F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8EE09721DDDA9B860982FB52 /* lib.rs */,
+				00A89872B2EF1394811BC837 /* main.rs */,
+			);
+			name = src;
+			path = ../../src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BAA9EE3A38B47164B17EFF57 /* denver-food-browser_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D486F561272CAE616092F89D /* Build configuration list for PBXNativeTarget "denver-food-browser_iOS" */;
+			buildPhases = (
+				9F4469D6EC317FBF48DC18B8 /* Build Rust Code */,
+				40A8F6B6FE52A20DB78EC133 /* Sources */,
+				F07CC8359D4FBF80628D702B /* Resources */,
+				BD98C221A77C31E05B581601 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "denver-food-browser_iOS";
+			packageProductDependencies = (
+			);
+			productName = "denver-food-browser_iOS";
+			productReference = 501A990500C11E70A2C1FAD9 /* denver-food-browser_iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9B1D36FA82C75BEA8355C35D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = 340E72845DCD5266DD2FA2A5 /* Build configuration list for PBXProject "denver-food-browser" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 7DE3D36CFD3DF1A2F7587DEA;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BAA9EE3A38B47164B17EFF57 /* denver-food-browser_iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F07CC8359D4FBF80628D702B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A86440051A6A9381B842052B /* Assets.xcassets in Resources */,
+				667D9DE748F82ABAE89C44CE /* LaunchScreen.storyboard in Resources */,
+				C7A23D9B602F5599655C83B2 /* assets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9F4469D6EC317FBF48DC18B8 /* Build Rust Code */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Rust Code";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Externals/x86_64/${CONFIGURATION}/libapp.a",
+				"$(SRCROOT)/Externals/arm64/${CONFIGURATION}/libapp.a",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bun tauri ios xcode-script -v --platform ${PLATFORM_DISPLAY_NAME:?} --sdk-root ${SDKROOT:?} --framework-search-paths \"${FRAMEWORK_SEARCH_PATHS:?}\" --header-search-paths \"${HEADER_SEARCH_PATHS:?}\" --gcc-preprocessor-definitions \"${GCC_PREPROCESSOR_DEFINITIONS:-}\" --configuration ${CONFIGURATION:?} ${FORCE_COLOR} ${ARCHS:?}";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		40A8F6B6FE52A20DB78EC133 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EBCAAD673D19E5416309EB9 /* main.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0528675ABA1E6D9ED450EAA9 /* debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = debug;
+		};
+		3AA10FBD25C9F70D60DAD0BB /* debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = (
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "denver-food-browser_iOS/denver-food-browser_iOS.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphoneos*]" = x86_64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
+				INFOPLIST_FILE = "denver-food-browser_iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=arm64]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
+				"LIBRARY_SEARCH_PATHS[arch=x86_64]" = "$(inherited) $(PROJECT_DIR)/Externals/x86_64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.denverfoodbrowser.app;
+				PRODUCT_NAME = "denver-food-browser";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = arm64;
+			};
+			name = debug;
+		};
+		51BF25AE70107650ABB22440 /* release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = release;
+		};
+		A9F25C56628A597B33C7C55B /* release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = (
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "denver-food-browser_iOS/denver-food-browser_iOS.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphoneos*]" = x86_64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
+				INFOPLIST_FILE = "denver-food-browser_iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=arm64]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
+				"LIBRARY_SEARCH_PATHS[arch=x86_64]" = "$(inherited) $(PROJECT_DIR)/Externals/x86_64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.denverfoodbrowser.app;
+				PRODUCT_NAME = "denver-food-browser";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = arm64;
+			};
+			name = release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		340E72845DCD5266DD2FA2A5 /* Build configuration list for PBXProject "denver-food-browser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0528675ABA1E6D9ED450EAA9 /* debug */,
+				51BF25AE70107650ABB22440 /* release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = debug;
+		};
+		D486F561272CAE616092F89D /* Build configuration list for PBXNativeTarget "denver-food-browser_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AA10FBD25C9F70D60DAD0BB /* debug */,
+				A9F25C56628A597B33C7C55B /* release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9B1D36FA82C75BEA8355C35D /* Project object */;
+}

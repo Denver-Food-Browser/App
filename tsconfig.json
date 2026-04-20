@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "ESNext",
+    "target": "ES2022",
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "types": ["@types/bun"],
+    "lib": ["ES2023", "dom"],
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": ["node_modules", "client"],
+  "include": ["scripts/**/*", "cms/**/*"]
+}

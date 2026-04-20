@@ -1,0 +1,9 @@
+/*  Recommended extensions to install within VS Code IDE */
+{
+  "recommendations": [
+    "oxc.oxc-vscode",
+    "svelte.svelte-vscode",
+    "tauri-apps.tauri-vscode",
+    "rust-lang.rust-analyzer"
+  ]
+}

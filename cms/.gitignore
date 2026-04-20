@@ -1,0 +1,11 @@
+# Local database files
+database/
+
+# Uploads (user-generated content)
+uploads/
+
+# Backups (full database + data)
+backups/**
+
+# Environment file (contains secrets)
+.env
